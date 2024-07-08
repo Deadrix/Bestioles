@@ -46,12 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET['id'])) {
     $name = $_POST['name'];
     $color = $_POST['color'];
     $sex = $_POST['sex'];
+    $speciesId = $_POST['speciesId'];
 
     $animal = new Animal($id, $name, $color, $sex);
     foreach ($allSpecies as $specie) {
         $specieObject = new Specie();
         $specieObject->fromJson(json_encode($specie));
-        if ($specieObject->getId() == $_POST['speciesId']) {
+        if ($specieObject->getId() == $speciesId) {
             $animal->setSpecie($specieObject);
             break;
         }
@@ -59,16 +60,28 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET['id'])) {
 
     $error_message = "";
 
-    if (strlen($name) > 50) {
+    if (strlen(trim($name)) === 0) {
+        $error_message .= "Le nom commun ne peut pas être vide. <br>";
+    }
+
+    if (strlen(trim($name)) > 50) {
         $error_message .= "Le prénom commun doit contenir au maximum 50 caractères. <br>";
     }
 
-    if (strlen($color) > 50) {
+    if (strlen(trim($color)) === 0) {
+        $error_message .= "La couleur ne peut pas être vide. <br>";
+    }
+
+    if (strlen(trim($color)) > 50) {
         $error_message .= "La couleur doit contenir au maximum 50 caractères. <br>";
     }
 
     if ($sex !== "M" && $sex !== "F") {
         $error_message .= "Le sexe doit être exprimé avec M et F. <br>";
+    }
+
+    if (strlen($speciesId) === 0) {
+        $error_message .= "L'espèce ne peut pas être vide. <br>";
     }
 
     if (empty($error_message)) {

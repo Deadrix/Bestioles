@@ -60,8 +60,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET['id'])) {
 
     $error_message = "";
 
+    if (strlen($firstName) === 0) {
+        $error_message .= "Le prénom ne peut pas être vide. <br>";
+    }
+
     if (strlen($firstName) > 50) {
-        $error_message .= "Le prénom commun doit contenir au maximum 50 caractères. <br>";
+        $error_message .= "Le prénom doit contenir au maximum 50 caractères. <br>";
+    }
+
+    if (strlen($lastName) === 0) {
+        $error_message .= "Le nom ne peut pas être vide. <br>";
     }
 
     if (strlen($lastName) > 50) {
@@ -69,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET['id'])) {
     }
 
     if ($age < 0 || $age > 120) {
-        $error_message .= "L'âge doit être compris entre à et 120 ans. <br>";
+        $error_message .= "L'âge doit être compris entre 0 et 120 ans. <br>";
     }
 
     if (empty($error_message)) {

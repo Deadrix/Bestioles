@@ -38,8 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET['id'])) {
 
     $error_message = "";
 
+    if (strlen($commonName) === 0) {
+        $error_message .= "Le nom commun ne peut pas être vide. <br>";
+    }
+
     if (strlen($commonName) > 50) {
         $error_message .= "Le nom commun doit contenir au maximum 50 caractères. <br>";
+    }
+
+    if (strlen($latinName) === 0) {
+        $error_message .= "Le nom latin ne peut pas être vide. <br>";
     }
 
     if (strlen($latinName) > 200) {
