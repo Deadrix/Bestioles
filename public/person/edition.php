@@ -37,7 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET['id'])) {
     && !empty($_POST['firstName'])
     && !empty($_POST['lastName'])
     && !empty($_POST['age'])
-    && !empty($_POST['animalsId'])
 ) {
 
     $allAnimals = json_decode($_SESSION['allAnimals'], true);
@@ -46,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET['id'])) {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $age = $_POST['age'];
-    $animalsId = $_POST['animalsId'];
+    $animalsId = $_POST['animalsId'] ?? [];
 
     print_r($animalsId);
 
